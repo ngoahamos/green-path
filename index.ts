@@ -1,22 +1,26 @@
-import express, { Express } from 'express';
+import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
+import "express-async-errors";
 
 
 import { errorHandler } from './src/middlewares/error.middleware';
 import { notFoundHandler } from './src/middlewares/not-found.middleware';
 import { logger } from './src/utils/logger';
 import healthRouter from './src/routes/health.router';
+import authRouter from './src/routes/auth.router';
+
+
 
 
 dotenv.config();
 
 const port = process.env.PORT;
 
-const app: Express = express();
+const app: Application = express();
 const api_version = process.env.VERSION ?? 'v1';
 
 const urlencoded_body_parser = bodyParser.urlencoded({
@@ -65,6 +69,8 @@ const prefix = `/api/${api_version}`;
 
 app.use('', healthRouter);
 app.use(prefix, healthRouter);
+
+app.use(prefix + '/auth', authRouter);
 
 
 
