@@ -17,7 +17,7 @@ export const calculate_riding_time_distance_and_emissions = (mode: string, ridin
     return distance * EMISSION_FACTOR;
 }
 
-export const calculate_carbon_emissions = (distance: number, fuel_consumption: number, fuel_type: string) => {
+export const calculate_car_carbon_emissions = (distance: number, fuel_type: string, fuel_consumption: number=1) => {
     // Constants for emission factors(in grams of CO2 per liter)
     const CO2_EMISSION_FACTOR_PETROL = 2.31  // Example value, replace with actual factor
     const CO2_EMISSION_FACTOR_DIESEL = 2.68  // Example value, replace with actual factor
@@ -63,6 +63,33 @@ export const calculate_carbon_emissions_from_walking =(time: number, distance: n
 
     return embodied_emissions
 }
+
+
+// FUNCTION calculateCarbonEmission(fromCity, toCity, travelClass)
+//     distance = calculateDistance(fromCity, toCity)
+//     carbonPerKm = lookupCarbonEmission(travelClass)
+//     carbonEmission = distance * carbonPerKm
+//     RETURN carbonEmission
+
+// FUNCTION calculateDistance(fromCity, toCity)
+//     distance = lookupDistance(fromCity, toCity)
+//     RETURN distance
+
+// FUNCTION lookupCarbonEmission(travelClass)
+//     IF travelClass is "economy"
+//         carbonPerKm = 0.080 // average carbon emission in kg/km for economy class
+//     ELSE IF travelClass is "business"
+//         carbonPerKm = 0.150 // average carbon emission in kg/km for business class
+//     ELSE IF travelClass is "first"
+//         carbonPerKm = 0.200 // average carbon emission in kg/km for first class
+//     ELSE
+//         carbonPerKm = 0.100 // default value for other travel classes
+//     RETURN carbonPerKm
+
+// FUNCTION lookupDistance(fromCity, toCity)
+//     // Lookup the distance between two cities using a distance API or database
+//     distance = API_CalculateDistance(fromCity, toCity)
+//     RETURN distance
 
 
 
