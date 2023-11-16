@@ -7,6 +7,24 @@ export const DB_STATUS = {
     SUSPENDED: 10,
     BLOCKED: 100
 }
+export const EMISSION_MODES = {
+    BIKE: "BIKE",
+    CAR: "CAR",
+    FLIGHT: "FLIGHT",
+    TRAIN: "TRAIN",
+    METRO: "METRO"
+}
+
+export const BIKE_MODES = {
+    ELECTRIC: "ELECTRIC",
+    BICYCLE: "BICYCLE",
+    GASOLINE: "GASOLINE"
+}
+
+export const BIKE_OWNERSHIP = {
+    OWNED: 'OWNED',
+    RENTED: 'RENTED'
+}
 
 export const LOGIN_TYPE = {
     EMAIL: 1,
@@ -19,5 +37,6 @@ console.log('env', process.env.JWT_SECRET)
 console.log('env--', process.env.DB)
 
 export default {
-    DB_STATUS, LOGIN_TYPE, JWT_LIFETIME, JWT_SECRET
+    DB_STATUS, LOGIN_TYPE, JWT_LIFETIME, JWT_SECRET,
+    EMISSION_MODES
 }

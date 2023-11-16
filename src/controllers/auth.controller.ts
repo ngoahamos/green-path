@@ -19,7 +19,7 @@ const register: RequestHandler = async (req: Request, res: Response) => {
     const exitingUser = await User.findOne({email: body.email});
 
     if (exitingUser)
-        return res.status(400).send({message: 'App Name Already Exists.'});
+        return res.status(400).send({message: 'Sorry! you cannot register with this email.'});
 
     body.password = await bcrypt.hash(body.password, 10)    
 
@@ -46,10 +46,6 @@ const login: RequestHandler = async (req: Request, res: Response) => {
    
     const email = auth[0];
     const password = auth[1];
-
-
-    
-
 
     if (!email || !password) return res.send({message: 'Invalid email or password'}).status(403)
 
