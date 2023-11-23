@@ -15,8 +15,8 @@ export const auth = async(
 
       jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
         if (err) return response.status(401).json({ error: "Invalid token" });
-        console.log(decoded)
-        // request.user = decoded as IUser;
+        
+        request.user = decoded as IUser;
         next();
     });
 

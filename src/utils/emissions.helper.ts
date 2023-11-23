@@ -9,12 +9,13 @@ export const calculate_riding_time_distance_and_emissions = (mode: string, ridin
     if (mode == BIKE_MODES.ELECTRIC) {
         speed = 20  // Assume an average speed of 20 km/h for electric bikes
     } else if (mode == BIKE_MODES.GASOLINE) {
-        speed = 80 // Assume an average speed of 20 km/h for electric bikes
+        speed = 80 // Assume an average speed of 80 km/h for electric bikes
+
     }
 
     const distance = riding_time * speed;
 
-    return distance * EMISSION_FACTOR;
+    return {emission: Number((distance * EMISSION_FACTOR).toFixed(2)), distance};
 }
 
 export const calculate_car_carbon_emissions = (distance: number, fuel_type: string, fuel_consumption: number=1) => {
@@ -40,7 +41,7 @@ export const calculate_car_carbon_emissions = (distance: number, fuel_type: stri
         total_emissions *= .1  // Electric cars have no direct tailpipe emissions, but they do emit during the manufacturing process
     }
 
-    return total_emissions
+    return Number(total_emissions.toFixed(2))
 
 }
 
@@ -61,35 +62,11 @@ export const calculate_carbon_emissions_from_walking =(time: number, distance: n
     const CARBON_EMISSIONS_PER_LITER_OF_OXYGEN = 0.5  // This value is a general approximation and might not accurately represent the energy expenditure for every individual or type of physical activity.
     const embodied_emissions = oxygen_consumed * CARBON_EMISSIONS_PER_LITER_OF_OXYGEN
 
-    return embodied_emissions
+    return Number(embodied_emissions.toFixed(2))
 }
 
 
-// FUNCTION calculateCarbonEmission(fromCity, toCity, travelClass)
-//     distance = calculateDistance(fromCity, toCity)
-//     carbonPerKm = lookupCarbonEmission(travelClass)
-//     carbonEmission = distance * carbonPerKm
-//     RETURN carbonEmission
 
-// FUNCTION calculateDistance(fromCity, toCity)
-//     distance = lookupDistance(fromCity, toCity)
-//     RETURN distance
-
-// FUNCTION lookupCarbonEmission(travelClass)
-//     IF travelClass is "economy"
-//         carbonPerKm = 0.080 // average carbon emission in kg/km for economy class
-//     ELSE IF travelClass is "business"
-//         carbonPerKm = 0.150 // average carbon emission in kg/km for business class
-//     ELSE IF travelClass is "first"
-//         carbonPerKm = 0.200 // average carbon emission in kg/km for first class
-//     ELSE
-//         carbonPerKm = 0.100 // default value for other travel classes
-//     RETURN carbonPerKm
-
-// FUNCTION lookupDistance(fromCity, toCity)
-//     // Lookup the distance between two cities using a distance API or database
-//     distance = API_CalculateDistance(fromCity, toCity)
-//     RETURN distance
 
 
 

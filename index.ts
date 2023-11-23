@@ -12,6 +12,7 @@ import { notFoundHandler } from './src/middlewares/not-found.middleware';
 import { logger } from './src/utils/logger';
 import healthRouter from './src/routes/health.router';
 import authRouter from './src/routes/auth.router';
+import emissionRouter from './src/routes/emissions.router';
 
 
 
@@ -71,6 +72,8 @@ app.use('', healthRouter);
 app.use(prefix, healthRouter);
 
 app.use(prefix + '/auth', authRouter);
+
+app.use(prefix + '/emissions', emissionRouter);
 
 
 

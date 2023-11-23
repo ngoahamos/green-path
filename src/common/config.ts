@@ -12,7 +12,8 @@ export const EMISSION_MODES = {
     CAR: "CAR",
     FLIGHT: "FLIGHT",
     TRAIN: "TRAIN",
-    METRO: "METRO"
+    METRO: "METRO",
+    WALK: "WALK"
 }
 
 export const BIKE_MODES = {
@@ -33,8 +34,7 @@ export const LOGIN_TYPE = {
 
 export const JWT_LIFETIME = process.env.JWT_LIFETIME // seconds 
 export const JWT_SECRET = process.env.JWT_SECRET ?? ''
-console.log('env', process.env.JWT_SECRET)
-console.log('env--', process.env.DB)
+
 
 export default {
     DB_STATUS, LOGIN_TYPE, JWT_LIFETIME, JWT_SECRET,
