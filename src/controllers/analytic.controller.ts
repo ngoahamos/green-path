@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { EMISSION_MODES, DAY_OF_WEEK } from "../common/config"
+import { EMISSION_MODES, DAY_OF_WEEK, DAYS } from "../common/config"
 import emissionModel from "../models/emission.model";
 import { parseDateToEndOfDay, parseDateToStartOfDay } from "../utils/date.helper";
 
@@ -83,6 +83,69 @@ const weekly_analytics = async(req: Request, res: Response) => {
     return res.send(results);
 }
 
+const total_emissions =  async(req: Request, res: Response) => {
+    const body = req.body;
+    const start_date = parseDateToStartOfDay(body.start_date);
+    const end_date = parseDateToEndOfDay(body.end_date);
+    const datasets = [];
+
+    
+    const labels = [...DAYS];
+
+    for(let mode in EMISSION_MODES) {
+        const label: any = EMISSION_MODES[mode];
+        const data: number[] = [];
+        for(let index=1;index<=labels.length;index++) {
+            const targetDayOfWeek = index; // 1 -> sunday, 2 -> Monday, etc
+
+            const queryResult = await emissionModel.aggregate([
+                {
+                    $match: {
+                       mode: label,
+                        date: {
+                            $gte: start_date,
+                            $lte: end_date
+                          },
+                          $expr: {
+                            $eq: [{ $dayOfWeek: '$date' }, targetDayOfWeek]
+                          }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        total_quantity: { $sum: '$quantity' }
+                        
+                    }
+                },
+            ]);
+            
+            if (queryResult && queryResult[0] && queryResult[0].total_quantity) {
+                data.push(queryResult[0].total_quantity)
+            } else {
+                data.push(0);
+            }
+        }
+      
+        datasets.push({
+            label,
+            data
+        })
+
+    }
+
+    const results = {
+        labels,
+        datasets
+    }
+    
+     
+
+
+
+    return res.send(results);
+}
+
 export default {
-    daily_average, weekly_analytics
+    daily_average, weekly_analytics, total_emissions
 }

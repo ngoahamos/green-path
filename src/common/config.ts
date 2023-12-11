@@ -7,7 +7,7 @@ export const DB_STATUS = {
     SUSPENDED: 10,
     BLOCKED: 100
 }
-export const EMISSION_MODES = {
+export const EMISSION_MODES: any = {
     BIKE: "BIKE",
     CAR: "CAR",
     FLIGHT: "FLIGHT",
@@ -49,11 +49,21 @@ export const DAY_OF_WEEK:any = {
     7: "Saturday"
 }
 
+export const DAYS = [
+    "Sunday",
+     "Monday",
+    "Tuesday",
+    "Wednesday",
+   "Thursday",
+    "Friday",
+    "Saturday",
+]
+
 export const JWT_LIFETIME = process.env.JWT_LIFETIME // seconds 
 export const JWT_SECRET = process.env.JWT_SECRET ?? ''
 
 
 export default {
     DB_STATUS, LOGIN_TYPE, JWT_LIFETIME, JWT_SECRET,
-    EMISSION_MODES, DAY_OF_WEEK
+    EMISSION_MODES, DAY_OF_WEEK,DAYS
 }

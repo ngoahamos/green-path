@@ -70,6 +70,7 @@ const login: RequestHandler = async (req: Request, res: Response) => {
         });
 
         const _user = await User.findOne({email}).select('-password')
+        console.log(config.JWT_LIFETIME);
 
         return res.send({user: _user, token, expiresIn: config.JWT_LIFETIME});
     } catch (err: any) {
