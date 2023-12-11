@@ -17,17 +17,24 @@ const daily_average = async(req: Request, res: Response) => {
             },
             {
                 $group: {
-                    _id: null,
-                    average_quantity: {$avg: 'quantity'}
+                    _id: "$mode",
+                    average_quantity: {$avg: '$quantity'}
                     
                 }
             }
         ]);
-
-        result.push({
+        console.log(queryResult);
+        const resultObj = {
             mode: modes[mode],
-            quantity: queryResult[0].average_quantity
-        })
+            quantity: 0,
+        }
+        
+        if (queryResult[0]) {
+            resultObj.quantity = queryResult[0].average_quantity ?? 0;
+            resultObj.quantity = +Number(resultObj.quantity).toFixed(2);
+        }
+
+        result.push(resultObj)
     }
 
     return res.send(result);
@@ -38,7 +45,7 @@ const weekly_analytics = async(req: Request, res: Response) => {
     const mode = body.mode;
     const start_date = parseDateToStartOfDay(body.start_date);
     const end_date = parseDateToEndOfDay(body.end_date);
-    
+
     const results: any[] = [];
     
      const queryResult = await emissionModel.aggregate([
@@ -65,9 +72,11 @@ const weekly_analytics = async(req: Request, res: Response) => {
         }
     ]);
 
+
+    // this object may not have all the days
     queryResult.forEach((val) => {
         results.push({day: DAY_OF_WEEK[val._id], quantity: val.total_quantity})
-    })
+    });
 
 
 
