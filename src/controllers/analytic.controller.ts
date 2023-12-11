@@ -31,3 +31,7 @@ const daily_average = async(req: Request, res: Response) => {
 
     return res.send(result);
 }
+
+export default {
+    daily_average
+}
