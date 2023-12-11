@@ -38,7 +38,7 @@ const register: RequestHandler = async (req: Request, res: Response) => {
 const login: RequestHandler = async (req: Request, res: Response) => {
     const request_body = req.headers["authorization"] || '';
 
-    if (!request_body) return res.send({message: 'Invalid email or password'}).status(403) // let's try not give anyone ideas
+    if (!request_body) return res.status(403).send({message: 'Invalid email or password.'}) // let's try not give anyone ideas
 
     const auth = Buffer.from(request_body, "base64")
         .toString()
@@ -47,7 +47,7 @@ const login: RequestHandler = async (req: Request, res: Response) => {
     const email = auth[0];
     const password = auth[1];
 
-    if (!email || !password) return res.send({message: 'Invalid email or password'}).status(403)
+    if (!email || !password) return res.status(403).send({message: 'Invalid email or password.'})
 
     try {
         const user = await User.findOne<IUser>({email});
@@ -62,7 +62,7 @@ const login: RequestHandler = async (req: Request, res: Response) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch)
-            return res.status(401).json({ error: "Your credentials didn't match our record." });
+            return res.status(403).json({ error: "Your credentials didn't match our record." });
    
         const token = jwt.sign({ _id: user._id }, config.JWT_SECRET, {
             expiresIn: config.JWT_LIFETIME,

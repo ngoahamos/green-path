@@ -24,7 +24,7 @@ const log_bike_emission = (req: Request, res: Response) => {
         distance: result.distance
     });
 
-    return res.status(200).send({message: `Estimated emission for this ride is ${result.emission} kg CO2`})
+    return res.status(200).send({emission: result.emission})
 }
 
 const log_walking_emission = (req: Request, res: Response) => {
@@ -45,7 +45,7 @@ const log_walking_emission = (req: Request, res: Response) => {
         distance: body.distance
     });
 
-    return res.status(200).send({message: `Estimated emission for this walk is ${result} kg CO2`})
+    return res.status(200).send({emission: result})
 }
 
 const log_car_emission = (req: Request, res: Response) => {
@@ -66,7 +66,7 @@ const log_car_emission = (req: Request, res: Response) => {
         distance: body.distance
     });
 
-    return res.status(200).send({message: `Estimated emission for driving ${body.distance}km is ${result} kg CO2`})
+    return res.status(200).send({emission: result})
 }
 
 export default {

@@ -14,7 +14,7 @@ export const auth = async(
       return response.status(401).send({message: 'Access denied. No key provided.'});
 
       jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
-        if (err) return response.status(401).json({ error: "Invalid token" });
+        if (err) return response.status(401).json({ message: "Invalid token" });
         
         request.user = decoded as IUser;
         next();
