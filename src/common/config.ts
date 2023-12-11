@@ -32,11 +32,28 @@ export const LOGIN_TYPE = {
     ALI_PAY: 2,
 }
 
+export const DAY_OF_WEEK:any = {
+    SUNDAY: "Sunday",
+    MONDAY: "Monday",
+    TUESDAY: "Tuesday",
+    WEDNESDAY: "Wednesday",
+    THURSDAY: "Thursday",
+    FRIDAY: "Friday",
+    SATURDAY: "Saturday",
+    1: "Sunday",
+    2: "Monday",
+    3: "Tuesday",
+    4: "Wednesday",
+    5: "Thursday",
+    6: "Friday",
+    7: "Saturday"
+}
+
 export const JWT_LIFETIME = process.env.JWT_LIFETIME // seconds 
 export const JWT_SECRET = process.env.JWT_SECRET ?? ''
 
 
 export default {
     DB_STATUS, LOGIN_TYPE, JWT_LIFETIME, JWT_SECRET,
-    EMISSION_MODES
+    EMISSION_MODES, DAY_OF_WEEK
 }
